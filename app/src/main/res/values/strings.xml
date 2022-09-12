@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Save Coin</string>
+    <string name="app_name">SaveCoin</string>
 
     <string name="txt_bem_vindo">Bem vindo, </string>
     <string name="txt_ola">Ola, </string>
