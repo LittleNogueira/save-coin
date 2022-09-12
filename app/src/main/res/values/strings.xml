@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Save Coin</string>
+
+    <string name="txt_bem_vindo">Bem vindo, </string>
+    <string name="txt_ola">Ola, </string>
+    <string name="txt_explicacao_historico">Abaixo, está o seu orçamento, gastos e o quanto você economizou para realizar a tão sonhada meta! Detalhamos mês a mês para conseguir se organizar de maneira efetiva e clara.</string>
+    <string name="txt_nao_possui_historico">Você ainda nao possui historico!</string>
+    <string name="txt_explicacao_balanco">Adiciona seus custos e ganhos, coloque, também e a recorrência. Assim, nós te ajudamos com seu sonho!</string>
+    <string name="txt_explicacao_economia">Calculo de economia é de 15% do seu ganho.</string>
+    <string name="txt_primeiro_acesso">Observamos que é sua primeira vez aqui, precisamos de alguns dados.</string>
+    <string name="txt_nome">Nome</string>
+    <string name="txt_receita_liquida_mes">Receita liquida por mes</string>
+    <string name="txt_valor">Valor</string>
+    <string name="txt_email">E-mail</string>
+    <string name="txt_tipo">Tipo</string>
+    <string name="txt_recorrencia">Recorrencia</string>
+    <string name="txt_vamos_economizar">Vamos economizar!</string>
+    <string name="txt_adicionar">Adicionar</string>
+    <string name="txt_adicionar_balanco">Adicionar balanço </string>
+    <string name="txt_entrada">Entrada</string>
+    <string name="txt_saida">Saida</string>
+    <string name="txt_economia">Economia</string>
+
+
+    <string name="hint_nome_balanco">Ex: Casa</string>
+    <string name="hint_nome">Ex: Fulano da Silva</string>
+    <string name="hint_valor">Ex: 4500</string>
+    <string name="hint_email">Ex: meuemail@email.com</string>
+
+    <string-array name="tipos">
+        <item>Entrada</item>
+        <item>Saida</item>
+    </string-array>
+
+    <string-array name="recorrencias">
+        <item>Unica</item>
+        <item>Mensal</item>
+        <item>Semanal</item>
+        <item>Diaria</item>
+    </string-array>
+</resources>
