@@ -3,6 +3,7 @@ package com.example.save_coin.client
 import com.example.save_coin.client.endpoint.SaveCoinEndpoint
 import com.example.save_coin.client.request.LancamentoRequest
 import com.example.save_coin.client.request.UsuarioRequest
+import com.example.save_coin.client.response.EconomiaResponse
 import com.example.save_coin.client.response.LancamentoResponse
 import com.example.save_coin.client.response.UsuarioResponse
 import com.example.save_coin.util.NetworkUtils
@@ -19,5 +20,9 @@ class SaveCoinClient() {
 
     fun criarLancamento(lancamentoRequest: LancamentoRequest, usuario: String): Call<LancamentoResponse> {
         return saveCoinEndpoint.criarLancamento(lancamentoRequest, usuario)
+    }
+
+    fun buscarHistorico(usuario: String): Call<List<EconomiaResponse>> {
+        return saveCoinEndpoint.buscarHistorico(usuario)
     }
 }

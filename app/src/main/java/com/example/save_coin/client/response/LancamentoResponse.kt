@@ -11,5 +11,5 @@ data class LancamentoResponse(
     @SerializedName("valor")        val valor: BigDecimal,
     @SerializedName("tipo")         val tipo: Tipo,
     @SerializedName("recorrencia")  val recorrencia: Recorrencia,
-    @SerializedName("referencia")   val referencia: String) {
-}
+    @SerializedName("referencia")   val referencia: String
+)

@@ -2,6 +2,7 @@ package com.example.save_coin.client.endpoint
 
 import com.example.save_coin.client.request.LancamentoRequest
 import com.example.save_coin.client.request.UsuarioRequest
+import com.example.save_coin.client.response.EconomiaResponse
 import com.example.save_coin.client.response.LancamentoResponse
 import com.example.save_coin.client.response.UsuarioResponse
 import retrofit2.Call
@@ -16,4 +17,7 @@ interface SaveCoinEndpoint {
 
     @POST("/lancamento")
     fun criarLancamento(@Body lancamento: LancamentoRequest, @Header("usuario") usuario: String): Call<LancamentoResponse>
+
+    @POST("/economia")
+    fun buscarHistorico(@Header("usuario") usuario: String): Call<List<EconomiaResponse>>
 }
