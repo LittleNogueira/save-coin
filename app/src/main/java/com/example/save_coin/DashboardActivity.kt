@@ -1,6 +1,5 @@
 package com.example.save_coin
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -11,10 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.save_coin.client.SaveCoinClient
-import com.example.save_coin.client.response.UsuarioResponse
-import com.example.save_coin.database.BalancoDatabaseManager
-import com.example.save_coin.database.EconomiaDatabaseManager
-import com.example.save_coin.model.Economia
+import com.example.save_coin.client.response.EconomiaResponse
 import com.example.save_coin.shared_preference.UsuarioSharedPreference
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,20 +26,16 @@ class DashboardActivity : AppCompatActivity() {
     private val MOEDA = "R$"
     private val MES_FORMAT = SimpleDateFormat("MMMM", Locale("pt", "BR"));
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         boasVindas()
-        carregaEconomiaAtual()
-        carregaHistorico()
+        carregaDashboard()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStart() {
         super.onStart()
-        carregaEconomiaAtual()
-        carregaHistorico()
+        carregaDashboard()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -61,13 +53,36 @@ class DashboardActivity : AppCompatActivity() {
         return true
     }
 
-    @SuppressLint("SetTextI18n")
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun carregaEconomiaAtual(){
-        val id = Economia.idAtual()
-        val economiaDatabaseManager = EconomiaDatabaseManager(this)
-        var economia = economiaDatabaseManager.calcular(id)
+    private fun boasVindas(){
+        val textViewBemVindo = findViewById<TextView>(R.id.txt_ola)
 
+        val usuarioSharedPreference = UsuarioSharedPreference(this)
+        val usuarioPreference = usuarioSharedPreference.get()
+
+        textViewBemVindo.text = textViewBemVindo.text.toString().plus(" ").plus(usuarioPreference!!.nome)
+    }
+
+    private fun carregaDashboard(){
+        val sharedPreference = UsuarioSharedPreference(this)
+        val saveCoinClient = SaveCoinClient()
+
+        val usuarioPreference = sharedPreference.get()
+        val callback = saveCoinClient.buscarHistorico(usuarioPreference!!.uuid)
+
+        callback.enqueue(object : Callback<List<EconomiaResponse>> {
+            override fun onFailure(call: Call<List<EconomiaResponse>>, t: Throwable) {
+                Toast.makeText(applicationContext, "Houve um falha na conexao com a API!", Toast.LENGTH_LONG).show()
+            }
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onResponse(call: Call<List<EconomiaResponse>>, response: Response<List<EconomiaResponse>>) {
+                val economias = response.body()
+                carregaEconomiaAtual(economias!![0])
+                carregaHistorico(economias)
+            }
+        })
+    }
+
+    private fun carregaEconomiaAtual(economia: EconomiaResponse){
         val textViewEntrada = findViewById<TextView>(R.id.txt_economia_entrada_valor)
         val textViewSaida = findViewById<TextView>(R.id.txt_economia_saida_valor)
         val textViewEconomia = findViewById<TextView>(R.id.txt_economia_valor)
@@ -84,20 +99,15 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun carregaHistorico(){
-        val economiaDatabaseManager = EconomiaDatabaseManager(this)
-        val historicos = economiaDatabaseManager.buscarHistorico()
-
-
-        historicos.forEachIndexed { index, economia ->
+    private fun carregaHistorico(economias: List<EconomiaResponse>){
+        economias.forEachIndexed { index, economia ->
             val txtViewHistoriocoMes = findViewByString("txt_historico_mes_".plus(index))
             val txtViewHistoriocoEntrada = findViewByString("txt_historico_entrada_".plus(index))
             val txtViewHistoriocoSaida = findViewByString("txt_historico_saida_".plus(index))
             val txtViewHistoriocoEconomia = findViewByString("txt_historico_economia_".plus(index))
 
             val calendario = Calendar.getInstance()
-            calendario.set(economia.ano.toInt(), economia.mes.toInt(), 0)
+            calendario.set(economia.ano().toInt(), economia.mes().toInt(), 0)
 
             txtViewHistoriocoMes.text = MES_FORMAT.format(calendario.time).capitalize()
             txtViewHistoriocoEntrada.text = MOEDA.plus(DECIMAL_FORMAT.format(economia.entrada))
@@ -110,16 +120,5 @@ class DashboardActivity : AppCompatActivity() {
         val idView: Int = resources.getIdentifier(id, "id", this.packageName)
         return findViewById(idView)
     }
-
-
-    private fun boasVindas(){
-        val textViewBemVindo = findViewById<TextView>(R.id.txt_ola)
-
-        val usuarioSharedPreference = UsuarioSharedPreference(this)
-        val usuarioPreference = usuarioSharedPreference.get()
-
-        textViewBemVindo.text = textViewBemVindo.text.toString().plus(" ").plus(usuarioPreference!!.nome)
-    }
-
 
 }

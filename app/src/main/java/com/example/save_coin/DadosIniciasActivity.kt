@@ -24,17 +24,13 @@ class DadosIniciasActivity : AppCompatActivity() {
 
     private val BALANCO_INICIAL = "balanco-inicial"
 
-    override @RequiresApi(Build.VERSION_CODES.O)
-    fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dados_inicias)
 
         val intent = Intent(this, DashboardActivity::class.java)
         val sharedPreference = UsuarioSharedPreference(this)
         val saveCoinClient = SaveCoinClient()
-
-        val balancoDatabaseManager = BalancoDatabaseManager(this)//VAI SER REMOVIDO
-
 
         val buttonVamosEconomizar = findViewById<Button>(R.id.btn_vamos_economizar)
 
@@ -54,27 +50,12 @@ class DadosIniciasActivity : AppCompatActivity() {
                     val usuarioPreference = convertInputsToUsuarioPreference(response.body()!!)
                     sharedPreference.put(usuarioPreference)
 
-                    val balanco = convertInputsToBalanco()
-                    balancoDatabaseManager.inserir(balanco)
-
                     startActivity(intent)
                     finish()
                 }
             })
 
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun convertInputsToBalanco(): Balanco {
-        val editTextValor = findViewById<EditText>(R.id.edt_receita_liquida_mensal)
-
-        return Balanco(
-            nome = BALANCO_INICIAL,
-            valor = BigDecimal(editTextValor.text.toString()),
-            tipo = Tipo.ENTRADA,
-            recorrencia = Recorrencia.MENSAL
-        )
     }
 
     private fun convertInputsToUsuarioPreference(usuarioResponse: UsuarioResponse): UsuarioPreference {
