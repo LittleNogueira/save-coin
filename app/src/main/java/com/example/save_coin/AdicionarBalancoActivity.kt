@@ -1,23 +1,17 @@
 package com.example.save_coin
 
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.example.save_coin.client.SaveCoinClient
 import com.example.save_coin.client.request.LancamentoRequest
 import com.example.save_coin.client.response.LancamentoResponse
-import com.example.save_coin.client.response.UsuarioResponse
-import com.example.save_coin.database.BalancoDatabaseManager
 import com.example.save_coin.enumeration.Recorrencia
 import com.example.save_coin.enumeration.Tipo
-import com.example.save_coin.model.Balanco
-import com.example.save_coin.model.Economia
 import com.example.save_coin.shared_preference.UsuarioSharedPreference
 import retrofit2.Call
 import retrofit2.Callback

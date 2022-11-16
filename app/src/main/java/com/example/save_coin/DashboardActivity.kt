@@ -25,6 +25,7 @@ class DashboardActivity : AppCompatActivity() {
     private val DECIMAL_FORMAT = DecimalFormat("#.##")
     private val MOEDA = "R$"
     private val MES_FORMAT = SimpleDateFormat("MMMM", Locale("pt", "BR"));
+    private var firstLoad = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,8 @@ class DashboardActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        carregaDashboard()
+        if(firstLoad)
+            carregaDashboard()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -78,6 +80,7 @@ class DashboardActivity : AppCompatActivity() {
                 val economias = response.body()
                 carregaEconomiaAtual(economias!![0])
                 carregaHistorico(economias)
+                firstLoad = true
             }
         })
     }
@@ -107,7 +110,7 @@ class DashboardActivity : AppCompatActivity() {
             val txtViewHistoriocoEconomia = findViewByString("txt_historico_economia_".plus(index))
 
             val calendario = Calendar.getInstance()
-            calendario.set(economia.ano().toInt(), economia.mes().toInt(), 0)
+            calendario.set(economia.ano(), economia.mes(), 0)
 
             txtViewHistoriocoMes.text = MES_FORMAT.format(calendario.time).capitalize()
             txtViewHistoriocoEntrada.text = MOEDA.plus(DECIMAL_FORMAT.format(economia.entrada))

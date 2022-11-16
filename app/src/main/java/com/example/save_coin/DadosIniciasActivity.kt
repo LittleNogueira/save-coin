@@ -1,24 +1,19 @@
 package com.example.save_coin
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.widget.*
-import androidx.annotation.RequiresApi
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.save_coin.client.SaveCoinClient
 import com.example.save_coin.client.request.UsuarioRequest
 import com.example.save_coin.client.response.UsuarioResponse
-import com.example.save_coin.database.BalancoDatabaseManager
-import com.example.save_coin.enumeration.Recorrencia
-import com.example.save_coin.enumeration.Tipo
-import com.example.save_coin.model.Balanco
 import com.example.save_coin.shared_preference.UsuarioSharedPreference
 import com.example.save_coin.shared_preference.model.UsuarioPreference
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.math.BigDecimal
 
 class DadosIniciasActivity : AppCompatActivity() {
 
