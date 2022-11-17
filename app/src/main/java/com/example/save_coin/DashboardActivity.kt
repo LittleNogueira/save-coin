@@ -43,7 +43,7 @@ class DashboardActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.action_adicionar_coisa -> {
-                val intent = Intent(this, AdicionarBalancoActivity::class.java)
+                val intent = Intent(this, AdicionarLancamentoActivity::class.java)
                 startActivity(intent)
             }
         }

@@ -22,7 +22,7 @@ import java.math.BigDecimal
 
 class DadosIniciasActivity : AppCompatActivity() {
 
-    private val BALANCO_INICIAL = "balanco-inicial"
+    private val LANCAMENTO_INICIAL = "lancamento-inicial"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +83,7 @@ class DadosIniciasActivity : AppCompatActivity() {
         val editTextReceita = findViewById<TextView>(R.id.edt_receita_liquida_mensal)
 
         return LancamentoRequest(
-            nome = BALANCO_INICIAL,
+            nome = LANCAMENTO_INICIAL,
             valor = BigDecimal(editTextReceita.text.toString()),
             tipo = Tipo.ENTRADA,
             recorrencia = Recorrencia.MENSAL

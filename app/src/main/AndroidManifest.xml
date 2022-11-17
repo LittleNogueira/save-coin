@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Savecoin"
         tools:targetApi="31">
         <activity
-            android:name=".AdicionarBalancoActivity"
+            android:name=".AdicionarLancamentoActivity"
             android:exported="false" />
         <activity
             android:name=".DashboardActivity"
